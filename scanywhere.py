@@ -440,7 +440,7 @@ if __name__ == '__main__':
         level=logging.INFO,
         format='%(asctime)-15s %(name)-5s %(levelname)-8s %(message)s'
     )
-    vpn_types = {
+    vpn_services = {
         'nord_open' : ENVIRONMENT_NORD_OPENVPN,
         'nord_wg' : ENVIRONMENT_NORD_WIREGUARD,
         'mullvad_open' : ENVIRONMENT_MULLVAD_OPENVPN,
@@ -464,8 +464,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--target_image', default='vowifi-geoblocking-scan-epdgs')
-    parser.add_argument('--vpn_type',
-                        choices=vpn_types.keys(),
+    parser.add_argument('--vpn_service',
+                        choices=vpn_services.keys(),
                         required=True)
     parser.add_argument('--server_selection', choices=['random', 'normalized'], default='normalized')
     parser.add_argument('--prune_containers', action='store_true')
@@ -489,12 +489,12 @@ if __name__ == '__main__':
     while(True):
         tmp_path = None
 
-        environment = vpn_types[args.vpn_type].copy()
-        if args.vpn_type == 'ec2':
+        environment = vpn_services[args.vpn_service].copy()
+        if args.vpn_service == 'ec2':
             ec2_manager = EC2Manager()
             client_config_dict = ec2_manager.start_instance_wg()
             environment |= client_config_dict
-        elif args.vpn_type == 'hideme_open':
+        elif args.vpn_service == 'hideme_open':
             host_list = get_hideme_servers()
             target_host = random.choice([h[0] for h in host_list.values()])
             logging.info(f"resolve {target_host}")
