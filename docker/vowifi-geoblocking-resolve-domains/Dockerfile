@@ -6,12 +6,13 @@ FROM mvance/unbound
 WORKDIR /vowifi-geoblocking-resolve-domains/
 
 # make unbound recursive
-COPY resources/unbound.conf /opt/unbound/etc/unbound/unbound.conf
+# COPY resources/unbound.conf /opt/unbound/etc/unbound/unbound.conf
 
 # debian
 RUN apt-get update && apt-get install -y git build-essential dnsutils net-tools python3 python3-pip \
    && git clone --depth=1 https://github.com/blechschmidt/massdns.git \
-   && cd massdns && make
+   && cd massdns \
+   && make
 
 COPY requirements.txt .
 

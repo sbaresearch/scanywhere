@@ -340,7 +340,7 @@ def run_image(client, gluetun_name, environment, image_tag, remove = False):
         image = f"{image_tag}:latest",
         network = f"container:{gluetun_name}",
         volumes = [f"{cur_dir.absolute()}/docker/{image_tag}/resources:/{image_tag}/resources:ro",
-                    f"{cur_dir.absolute()}/docker/{image_tag}/results:/{image_tag}/results"],
+                   f"{cur_dir.absolute()}/docker/{image_tag}/results:/{image_tag}/results"],
         sysctls = {
             "net.ipv6.conf.all.disable_ipv6": "0"
         },
