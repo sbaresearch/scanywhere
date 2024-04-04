@@ -83,7 +83,12 @@ The current sourcecode automatically creates container volumes for the subfolder
 ### Update gluetun server lists
 `docker run --rm -v $(pwd)/docker/gluetun:/gluetun qmcgaw/gluetun update -enduser -providers "mullvad,nordvpn,private internet access,protonvpn,surfshark,hidemyass,cyberghost,ivpn"`
 
-## Related Repositories and Credits
+
+Acknowledgments
+---------------------------------------
+scanywhere was developed at [SBA Research](https://www.sba-research.org/) and [University of Vienna](https://sec.cs.univie.ac.at/) by [Gabriel K. Gegenhuber](https://www.sba-research.org/team/gabriel-k-gegenhuber/).
+
+## Related Repositories
 * [gluetun](https://github.com/qdm12/gluetun): used to route measurements over VPN subscriptions
 * [wgcf](https://github.com/ViRb3/wgcf): used to generate ephemeral warp profiles
 * [boto3](https://github.com/boto/boto3): used to automatically deploy/manage ec2 instances
@@ -102,3 +107,9 @@ If you use the code or data in your research or work, please cite the following 
   year={2024}
 }
 ```
+
+License
+---------------------------------------
+scanywhere is licensed under GPLv3
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
