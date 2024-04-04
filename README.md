@@ -1,6 +1,12 @@
 # scanywhere
 Globally deploy your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
+### Features
+* Providing Built-in support for many popoular VPN services: nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, warp
+* Providing IPv6 support whenever it is available by the VPN service (e.g., Mullvad)
+* Allowing to add an ephemeral Cloudflare Warp hop after the original VPN connection (helping to provide IPv6 connectivity in all countries supported by the original VPN service)
+* Out-of-the-box solution for running epehemeral wireguard VPNs across all available regions on AWS EC2
+  * Implementing a [deadman_switch](/utils/deadman_switch.sh) that automatically shuts down your started instances after disconnection of the corresponding VPN client (to save you from excessive AWS fees)
 
 ## Usage
 1. Provide credentials to your subscriptions in the `credentials.json` config file (placed in the root directory). Not used services can be deleted or left empty.
