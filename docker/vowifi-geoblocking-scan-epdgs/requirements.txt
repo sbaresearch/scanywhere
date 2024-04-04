@@ -1,0 +1,8 @@
+
+requests
+cryptography
+pycryptodome
+
+git+https://github.com/P1sec/CryptoMobile.git
+git+https://github.com/mitshell/card.git
+
