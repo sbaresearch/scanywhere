@@ -1,4 +1,4 @@
-# scanywhere: Internet scanning anywhere and everywhere
+# scanywhere
 Globally deploy and distribute your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
 ### Features
@@ -97,9 +97,11 @@ scanywhere was developed at [SBA Research](https://www.sba-research.org/) and [U
 * [boto3](https://github.com/boto/boto3): used to automatically deploy/manage ec2 instances
 
 ### Related Measurement Paper (VoWiFi Geoblocking)
-* Paper (MobiSys 2024): [Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](https://www.researchgate.net/publication/378971036_Why_ET_Can't_Phone_Home_A_Global_View_on_IP-based_Geoblocking_at_VoWiFi)
+* Paper (MobiSys 2024): [Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](/vowifi-mobisys24/MobiSys2024_Why_ET_Cant_Phone_Home.pdf)
 * Measurement Artifacts:
+  * existing ePDG domains, IPs and geoblocking evaluation files: check out the [vowifi-mobisys24 directory](vowifi-mobisys24)
   * sqlite database (ePDG scan results): [dataset](https://phaidra.univie.ac.at/detail/o:2059211)
+
 
 If you use the code or data in your research or work, please cite the following paper:
 ```
