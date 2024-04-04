@@ -4,51 +4,51 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 ## Usage
 1. Provide credentials to your subscriptions in the `credentials.json` config file (placed in the root directory). Not used services can be deleted or left empty.
 
-Example `credentials.json` file:
-```
-{
-    "NORD_OPENVPN_USER": "",
-    "NORD_OPENVPN_PASSWORD": "",
-    "NORD_WIREGUARD_PRIVATE_KEY": "",
+    Example `credentials.json` file:
+    ```
+    {
+        "NORD_OPENVPN_USER": "",
+        "NORD_OPENVPN_PASSWORD": "",
+        "NORD_WIREGUARD_PRIVATE_KEY": "",
 
-    "MULLVAD_OPENVPN_USER": "",
-    "MULLVAD_WIREGUARD_PRIVATE_KEY": "",
-    "MULLVAD_WIREGUARD_ADDRESSES": "",
+        "MULLVAD_OPENVPN_USER": "",
+        "MULLVAD_WIREGUARD_PRIVATE_KEY": "",
+        "MULLVAD_WIREGUARD_ADDRESSES": "",
 
-    "SURFSHARK_OPENVPN_USER": "",
-    "SURFSHARK_OPENVPN_PASSWORD": "",
-    "SURFSHARK_WIREGUARD_PRIVATE_KEY": "",
-    "SURFSHARK_WIREGUARD_ADDRESSES": "",
+        "SURFSHARK_OPENVPN_USER": "",
+        "SURFSHARK_OPENVPN_PASSWORD": "",
+        "SURFSHARK_WIREGUARD_PRIVATE_KEY": "",
+        "SURFSHARK_WIREGUARD_ADDRESSES": "",
 
-    "PROTON_OPENVPN_USER": "",
-    "PROTON_OPENVPN_PASSWORD": "",
+        "PROTON_OPENVPN_USER": "",
+        "PROTON_OPENVPN_PASSWORD": "",
 
-    "PIA_OPENVPN_USER": "",
-    "PIA_OPENVPN_PASSWORD": "",
+        "PIA_OPENVPN_USER": "",
+        "PIA_OPENVPN_PASSWORD": "",
 
-    "HMA_OPENVPN_USER": "",
-    "HMA_OPENVPN_PASSWORD": "",
+        "HMA_OPENVPN_USER": "",
+        "HMA_OPENVPN_PASSWORD": "",
 
-    "CYBERGHOST_OPENVPN_USER" : "",
-    "CYBERGHOST_OPENVPN_PASSWORD" : "",
-    "CYBERGHOST_OPENVPN_KEY" : "",
-    "CYBERGHOST_OPENVPN_CERT" : "",
+        "CYBERGHOST_OPENVPN_USER" : "",
+        "CYBERGHOST_OPENVPN_PASSWORD" : "",
+        "CYBERGHOST_OPENVPN_KEY" : "",
+        "CYBERGHOST_OPENVPN_CERT" : "",
 
-    "IVPN_OPENVPN_USER" : "",
-    "IVPN_WIREGUARD_PRIVATE_KEY": "",
-    "IVPN_WIREGUARD_ADDRESSES": "",
+        "IVPN_OPENVPN_USER" : "",
+        "IVPN_WIREGUARD_PRIVATE_KEY": "",
+        "IVPN_WIREGUARD_ADDRESSES": "",
 
-    "HIDEME_OPENVPN_USER": "",
-    "HIDEME_OPENVPN_PASSWORD": "",
+        "HIDEME_OPENVPN_USER": "",
+        "HIDEME_OPENVPN_PASSWORD": "",
 
-    "EC2_ID": "",
-    "EC2_KEY": ""
-}
-```
+        "EC2_ID": "",
+        "EC2_KEY": ""
+    }
+    ```
 2. Paste your SSH key into the `ssh_key.pub` file. This is only required if you want to use EC2 instances as VPN servers. The provided SSH key is used to provide debugging access to the ephemeral EC2 instances.
 
-Example `ssh_key.pub` file:
-`ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01`
+    Example `ssh_key.pub` file:
+    `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01`
 
 3. Run example measurement (IPv4/IPv6 connectivity check):
 `./scanywhere.py --vpn_type surfshark_open --target_image check-ip-connectivity`
