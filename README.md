@@ -87,3 +87,17 @@ The current sourcecode automatically creates container volumes for the subfolder
 * [gluetun](https://github.com/qdm12/gluetun): used to route measurements over VPN subscriptions
 * [wgcf](https://github.com/ViRb3/wgcf): used to generate ephemeral warp profiles
 * [boto3](https://github.com/boto/boto3): used to automatically deploy/manage ec2 instances
+
+## Related Measurement Paper (VoWiFi Geoblocking)
+* Paper: [[MobiSys 2024] Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](https://www.researchgate.net/publication/378971036_Why_ET_Can't_Phone_Home_A_Global_View_on_IP-based_Geoblocking_at_VoWiFi)
+* Scan Results: [sqlite database](https://phaidra.univie.ac.at/detail/o:2059211)
+
+If you use the code or data in your research or work, please cite the following paper:
+```
+@inproceedings{gegenhuber2024geoblocking,
+  title={Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi},
+  author={Gegenhuber, Gabriel K. and Frenzel, Philipp È. and Weippl, Edgar},
+  booktitle={Proceedings of the 22nd Annual International Conference on Mobile Systems, Applications, and Services (MobiSys 2024)},
+  year={2024}
+}
+```
