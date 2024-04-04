@@ -167,4 +167,4 @@ credentials.json
 hideme_servers.json
 
 # do not upload public ssh key (ec2)
-hideme_servers.json
+ssh_key.pub
