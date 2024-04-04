@@ -7,7 +7,8 @@ from pathlib import Path
 
 MASSDNS_BIN = Path("/vowifi-geoblocking-resolve-domains/massdns/bin/massdns")
 AUTH_SCRIPT = Path("/vowifi-geoblocking-resolve-domains/massdns/scripts/auth-addrs.sh")
-HOSTLIST_FILE = Path("/vowifi-geoblocking-resolve-domains/resources/hosts.txt")
+#HOSTLIST_FILE = Path("/vowifi-geoblocking-resolve-domains/resources/possible_epdgs.txt")
+HOSTLIST_FILE = Path("/vowifi-geoblocking-resolve-domains/resources/existing_epdgs.txt")
 UNBOUND_FILE = Path("/vowifi-geoblocking-resolve-domains/resources/local_unbound.txt")
 OUTPUT_DIR = Path("/vowifi-geoblocking-resolve-domains/results/")
 TMP_DIR = Path("/tmp/massdns")
