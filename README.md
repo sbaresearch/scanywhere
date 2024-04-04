@@ -1,5 +1,5 @@
 # scanywhere
-Globally deploy your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
+Globally deploy and distribute your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
 ### Features
 * Providing built-in support for many popoular VPN services: nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, warp
@@ -63,7 +63,9 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 
     `./scanywhere.py --vpn_service surfshark_open --target_image check-ip-connectivity`
 
-4. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
+4. The docker image for the test `check-ip-connectivity` will iteratively be executed from different countries using the selected VPN service.
+
+5. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
 
 ### Arguments
 * `--vpn_service`: the VPN service that will be used as a proxy for the measurement
