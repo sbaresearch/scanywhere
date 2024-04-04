@@ -89,8 +89,9 @@ The current sourcecode automatically creates container volumes for the subfolder
 * [boto3](https://github.com/boto/boto3): used to automatically deploy/manage ec2 instances
 
 ## Related Measurement Paper (VoWiFi Geoblocking)
-* Paper: [[MobiSys 2024] Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](https://www.researchgate.net/publication/378971036_Why_ET_Can't_Phone_Home_A_Global_View_on_IP-based_Geoblocking_at_VoWiFi)
-* Scan Results: [sqlite database](https://phaidra.univie.ac.at/detail/o:2059211)
+* Paper (MobiSys 2024): [Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](https://www.researchgate.net/publication/378971036_Why_ET_Can't_Phone_Home_A_Global_View_on_IP-based_Geoblocking_at_VoWiFi)
+* Scan Results:
+  * sqlite database: [dataset](https://phaidra.univie.ac.at/detail/o:2059211)
 
 If you use the code or data in your research or work, please cite the following paper:
 ```
