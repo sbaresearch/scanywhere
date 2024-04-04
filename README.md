@@ -53,7 +53,7 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
     ```
 
 3. Run example measurement (IPv4/IPv6 connectivity check):
-`./scanywhere.py --vpn_type surfshark_open --target_image check-ip-connectivity`
+    `./scanywhere.py --vpn_type surfshark_open --target_image check-ip-connectivity`
 
 ## Implemented Experiments
 - IPv4/IPv6 Connectivity Check: 
