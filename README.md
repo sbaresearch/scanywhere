@@ -3,7 +3,8 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 
 ## Usage
 1. Provide credentials to your subscriptions in the `credentials.json` config file (placed in the root directory). Not used services can be deleted or left empty.
-`credentials.json`:
+
+Example `credentials.json` file:
 ```
 {
     "NORD_OPENVPN_USER": "",
@@ -45,7 +46,8 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 }
 ```
 2. Paste your SSH key into the `ssh_key.pub` file. This is only required if you want to use EC2 instances as VPN servers. The provided SSH key is used to provide debugging access to the ephemeral EC2 instances.
-`ssh_key.pub`:
+
+Example `ssh_key.pub` file:
 `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01`
 
 3. Run example measurement (IPv4/IPv6 connectivity check):
