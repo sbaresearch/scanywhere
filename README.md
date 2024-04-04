@@ -2,7 +2,7 @@
 Globally deploy your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
 ### Features
-* Providing Built-in support for many popoular VPN services: nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, warp
+* Providing built-in support for many popoular VPN services: nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, warp
 * Providing IPv6 support whenever it is available by the VPN service (e.g., Mullvad)
 * Allowing to add an ephemeral Cloudflare Warp hop after the original VPN connection (helping to provide IPv6 connectivity in all countries supported by the original VPN service)
 * Out-of-the-box solution for running epehemeral wireguard VPNs across all available regions on AWS EC2
@@ -52,7 +52,7 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
         "EC2_KEY": ""
     }
     ```
-2. Paste your SSH key into the `ssh_key.pub` file. This is only required if you want to use EC2 instances as VPN servers. The provided SSH key is used to provide debugging access to the ephemeral EC2 instances.
+2. Paste your SSH key into the `ssh_key.pub` file (placed in the root directory). This is only required if you want to use EC2 instances as VPN servers. The given SSH key is used to provide debugging access to the ephemeral EC2 instances.
 
     Example `ssh_key.pub` file:
     ```
@@ -108,6 +108,6 @@ If you use the code or data in your research or work, please cite the following 
 ```
 
 ## License
-scanywhere is licensed under GPLv3
+scanywhere is licensed under GPLv3.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
