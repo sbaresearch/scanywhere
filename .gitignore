@@ -162,3 +162,9 @@ cython_debug/
 
 # do not upload credentials file
 credentials.json
+
+# do not upload hideme server file
+hideme_servers.json
+
+# do not upload public ssh key (ec2)
+hideme_servers.json

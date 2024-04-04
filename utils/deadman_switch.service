@@ -1,0 +1,9 @@
+[Unit]
+Description=Wireguard Deadman Switch
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/deadman_switch.sh
+
+[Install]
+WantedBy=default.target
