@@ -1,10 +1,11 @@
 # scanywhere
 Globally deploy your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
+
 ## Usage
 1. Provide credentials to your subscriptions in the `credentials.json` config file (placed in the root directory). Not used services can be deleted or left empty.
 
-    Example `credentials.json` file:
+    Example `credentials.json` file (empty):
     ```
     {
         "NORD_OPENVPN_USER": "",
