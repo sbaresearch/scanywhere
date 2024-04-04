@@ -63,6 +63,8 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 
     `./scanywhere.py --vpn_service surfshark_open --target_image check-ip-connectivity`
 
+4. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
+
 ### Arguments
 * `--vpn_service`: the VPN service that will be used as a proxy for the measurement
 * `--server_selection`: can be set to `random` (i.e., the VPN server will be chosen randomly from all available servers) or `normalized` (i.e., the script will try to normalize the available VPN servers by their country, to not overrepresent popular countries in the measurements -- this can otherwise happen when a VPN service has many servers e.g., in the US or Germany).
