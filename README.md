@@ -2,7 +2,7 @@
 Globally deploy and distribute your Internet measurements, scans and experiments leveraging cloud infrastructure and consumer-grade VPN subscriptions.
 
 ### Features
-* Providing built-in support for many popoular VPN services: nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, warp
+* Providing built-in support for many popoular VPN services: e.g., nordvpn, mullvad, surfshark, protonvpn, public internet access, hidemyass, cyberghost, ivpn, hide.me, cloudflare warp
 * Providing IPv6 support whenever it is available by the VPN service (e.g., Mullvad)
 * Allowing to add an ephemeral Cloudflare Warp hop after the original VPN connection (helping to provide IPv6 connectivity in all countries supported by the original VPN service)
 * Out-of-the-box solution for running epehemeral wireguard VPNs across all available regions on AWS EC2
@@ -59,18 +59,20 @@ Globally deploy and distribute your Internet measurements, scans and experiments
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01
     ```
 
-3. Run example measurement (IPv4/IPv6 connectivity check):
+3. Install the requirements from the (requirements.txt)[requirements.txt] file.
+
+4. Run example measurement (IPv4/IPv6 connectivity check):
 
     `./scanywhere.py --vpn_service surfshark_open --target_image check-ip-connectivity`
 
-4. The docker image for the test `check-ip-connectivity` will iteratively be executed from different countries using the selected VPN service.
+5. Scanywhere will iteratively execute the docker image for the test `check-ip-connectivity` from different countries using the selected VPN service.
 
-5. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
+6. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
 
 ### Arguments
 * `--vpn_service`: the VPN service that will be used as a proxy for the measurement
 * `--server_selection`: can be set to `random` (i.e., the VPN server will be chosen randomly from all available servers) or `normalized` (i.e., the script will try to normalize the available VPN servers by their country, to not overrepresent popular countries in the measurements -- this can otherwise happen when a VPN service has many servers e.g., in the US or Germany).
-* `--warp_mode`: allows adding an additional cloudflare container that is chained after the original VPN service
+* `--warp_mode`: adds an additional cloudflare container that is chained after the original VPN service
 
 ## Implemented Experiments
 * IPv4/IPv6 Connectivity Check: [check-ip-connectivity](/docker/check-ip-connectivity)
