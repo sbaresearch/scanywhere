@@ -71,8 +71,8 @@ Globally deploy your Internet measurements, scans and experiments leveraging clo
 * `--warp_mode`: allows adding an additional cloudflare container that is chained after the original VPN service
 
 ## Implemented Experiments
-* IPv4/IPv6 Connectivity Check: 
-* VoWiFi Geoblocking Study: [check-ip-connectivity](/docker/check-ip-connectivity)
+* IPv4/IPv6 Connectivity Check: [check-ip-connectivity](/docker/check-ip-connectivity)
+* VoWiFi Geoblocking Study:
   * Mass GeoDNS Resolution: [vowifi-geoblocking-resolve-domains](/docker/vowifi-geoblocking-resolve-domains)
   * Discover Geoblocking at ePDG servers: [vowifi-geoblocking-scan-epdgs](/docker/vowifi-geoblocking-scan-epdgs)
 
