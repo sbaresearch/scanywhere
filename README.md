@@ -72,7 +72,6 @@ Globally deploy and distribute your Internet measurements, scans and experiments
     `./scanywhere.py --vpn_service surfshark_open --target_image check-ip-connectivity`
 
 5. Scanywhere will iteratively execute the docker image for the test `check-ip-connectivity` from different countries using the selected VPN service.
-    > [!WARNING]
     > Note that the program will iteratively run the measurement over different VPN endpoints in an inifite loop. It can be terminated via Ctrl + C.
 
 6. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
