@@ -101,9 +101,11 @@ scanywhere was developed at [SBA Research](https://www.sba-research.org/) and [U
 ### Related Measurement Paper (VoWiFi Geoblocking)
 * Paper (MobiSys 2024): [Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi](/vowifi-mobisys24/MobiSys2024_Why_ET_Cant_Phone_Home.pdf)
 * Measurement Artifacts:
-  * existing ePDG domains, IPs and geoblocking evaluation files: check out the [vowifi-mobisys24 directory](vowifi-mobisys24)
-  * sqlite database (ePDG scan results): [dataset](https://phaidra.univie.ac.at/detail/o:2059211)
-
+  * discovered ePDG domains, IPs (by August 2023): check out the [epdgs directory](/vowifi-mobisys24/epdgs)
+  * raw DNS discovery result files (8,555 domain discovery + 47,902 IP discovery rounds): check out the [dataset](https://phaidra.univie.ac.at/detail/o:2060209)
+  * raw IKE probing result files (55,766 scan rounds): check out the [dataset](https://phaidra.univie.ac.at/detail/o:2060208)
+  * intermediary evaluation files: check out the [evaluation directory](/vowifi-mobisys24/evaluation)
+  * sqlite database (processed ePDG scan results): check out the [dataset](https://phaidra.univie.ac.at/detail/o:2059211)
 
 If you use the code or data in your research or work, please cite the following paper:
 ```

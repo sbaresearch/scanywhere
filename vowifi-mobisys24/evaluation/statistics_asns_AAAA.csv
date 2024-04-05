@@ -1,0 +1,66 @@
+epdg.epc.mnc020.mcc208.pub.3gppnetwork.org.,FR_20820_Bouygues Telecom,2001:864:f100::2:8,False,FR,FR,True,BOUYGTEL-ISP
+epdg.epc.mnc020.mcc208.pub.3gppnetwork.org.,FR_20820_Bouygues Telecom,2001:864:f100::2:c,False,FR,FR,True,BOUYGTEL-ISP
+epdg.epc.mnc001.mcc216.pub.3gppnetwork.org.,HU_21601_Telenor Magyarország Zrt.,2a00:1878:f804:201::1,False,HU,HU,True,"CETIN-HU Torokbalint, Hungary"
+epdg.epc.mnc001.mcc216.pub.3gppnetwork.org.,HU_21601_Telenor Magyarország Zrt.,2a00:1878:f806:201::1,False,HU,HU,True,"CETIN-HU Torokbalint, Hungary"
+epdg.epc.mnc001.mcc231.pub.3gppnetwork.org.,SK_23101_Orange Slovensko,2a01:c840:180:2::1,False,SK,SK,True,OSK-DNI Slovakia
+epdg.epc.mnc001.mcc231.pub.3gppnetwork.org.,SK_23101_Orange Slovensko,2a01:c840:181:2::1,False,SK,SK,True,OSK-DNI Slovakia
+epdg.epc.mnc094.mcc235.pub.3gppnetwork.org.,GB_23594_Hutchison 3G UK Ltd,64:ff9b::b999:ec60,False,xx,xx,False,unknown
+epdg.epc.mnc094.mcc235.pub.3gppnetwork.org.,GB_23594_Hutchison 3G UK Ltd,64:ff9b::b999:ec61,False,xx,xx,False,unknown
+epdg.epc.mnc001.mcc250.pub.3gppnetwork.org.,RU_25001_Mobile TeleSystems,2a00:1fa4:0:e::1,False,RU,RU,True,MTS
+epdg.epc.mnc009.mcc262.pub.3gppnetwork.org.,DE_26209_Vodafone D2 GmbH,2a01:8f1:fe:1000::4,False,DE,DE,True,VODANET International IP-Backbone of Vodafone
+epdg.epc.mnc009.mcc262.pub.3gppnetwork.org.,DE_26209_Vodafone D2 GmbH,2a01:8f1:fe:1000::5,False,DE,DE,True,VODANET International IP-Backbone of Vodafone
+epdg.epc.mnc023.mcc262.pub.3gppnetwork.org.,DE_26223_Drillisch Online AG,2a00:fbc:2201:c660:10c:2b52:2:2,False,DE,DE,True,VERSATEL
+epdg.epc.mnc011.mcc274.pub.3gppnetwork.org.,IS_27411_Nova ehf,2a01:6f00:4357::4e28:f9db,False,IS,IS,True,NOVAIS-AS
+epdg.epc.mnc011.mcc274.pub.3gppnetwork.org.,IS_27411_Nova ehf,2a01:6f00:4357::4e28:f9d8,False,IS,IS,True,NOVAIS-AS
+epdg.epc.mnc041.mcc293.pub.3gppnetwork.org.,SI_29341_Telekom Slovenije,2a02:e20:1050::1,False,SI,SI,True,SIOL-NET Telekom Slovenije d.d.
+epdg.epc.mnc041.mcc293.pub.3gppnetwork.org.,SI_29341_Telekom Slovenije,2a02:e20:3050::1,False,SI,SI,True,SIOL-NET Telekom Slovenije d.d.
+epdg.epc.mnc610.mcc302.pub.3gppnetwork.org.,CA_302610_Bell Mobility,2605:b100:480:1f::2,False,CA,CA,True,BACOM
+epdg.epc.mnc610.mcc302.pub.3gppnetwork.org.,CA_302610_Bell Mobility,2605:b100:c80:1f::2,False,CA,CA,True,BACOM
+epdg.epc.mnc610.mcc302.pub.3gppnetwork.org.,CA_302610_Bell Mobility,2605:b100:680:1f::2,False,CA,CA,True,BACOM
+epdg.epc.mnc610.mcc302.pub.3gppnetwork.org.,CA_302610_Bell Mobility,2605:b100:80:1f::2,False,CA,CA,True,BACOM
+epdg.epc.mnc610.mcc302.pub.3gppnetwork.org.,CA_302610_Bell Mobility,2605:b100:280:1f::2,False,CA,CA,True,BACOM
+epdg.epc.mnc020.mcc310.pub.3gppnetwork.org.,US_310020_Union Telephone Company,2607:d080:3000::1,False,US,US,True,UNION-CELL
+epdg.epc.mnc020.mcc310.pub.3gppnetwork.org.,US_310020_Union Telephone Company,2607:d080:3010::1,False,US,US,True,UNION-CELL
+epdg.epc.mnc019.mcc404.pub.3gppnetwork.org.,IN_40419_Kerala,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc019.mcc404.pub.3gppnetwork.org.,IN_40419_Kerala,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc020.mcc404.pub.3gppnetwork.org.,IN_40420_Mumbai,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc020.mcc404.pub.3gppnetwork.org.,IN_40420_Mumbai,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc022.mcc404.pub.3gppnetwork.org.,IN_40422_Maharashtra & Goa,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc022.mcc404.pub.3gppnetwork.org.,IN_40422_Maharashtra & Goa,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc027.mcc404.pub.3gppnetwork.org.,IN_40427_Maharashtra & Goa,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc027.mcc404.pub.3gppnetwork.org.,IN_40427_Maharashtra & Goa,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc043.mcc404.pub.3gppnetwork.org.,IN_40443_Tamil Nadu,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc043.mcc404.pub.3gppnetwork.org.,IN_40443_Tamil Nadu,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc044.mcc404.pub.3gppnetwork.org.,IN_40444_Karnataka,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc044.mcc404.pub.3gppnetwork.org.,IN_40444_Karnataka,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc046.mcc404.pub.3gppnetwork.org.,IN_40446_Kerala,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc046.mcc404.pub.3gppnetwork.org.,IN_40446_Kerala,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc078.mcc404.pub.3gppnetwork.org.,IN_40478_Madhya Pradesh & Chattishgarh,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc078.mcc404.pub.3gppnetwork.org.,IN_40478_Madhya Pradesh & Chattishgarh,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc084.mcc404.pub.3gppnetwork.org.,IN_40484_Chennai,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc084.mcc404.pub.3gppnetwork.org.,IN_40484_Chennai,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc086.mcc404.pub.3gppnetwork.org.,IN_40486_Karnataka,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc086.mcc404.pub.3gppnetwork.org.,IN_40486_Karnataka,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc756.mcc405.pub.3gppnetwork.org.,IN_405756_Madhya Pradesh & Chhattisgarh,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc756.mcc405.pub.3gppnetwork.org.,IN_405756_Madhya Pradesh & Chhattisgarh,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc799.mcc405.pub.3gppnetwork.org.,IN_405799_Mumbai,2402:3a80:1060::4,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc799.mcc405.pub.3gppnetwork.org.,IN_405799_Mumbai,2402:3a80:1060::3,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc852.mcc405.pub.3gppnetwork.org.,IN_405852_Tamil Nadu,2402:3a80:1060::5,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc852.mcc405.pub.3gppnetwork.org.,IN_405852_Tamil Nadu,2402:3a80:1060::6,False,IN,IN,True,VIL-AS-AP Vodafone Idea Ltd
+epdg.epc.mnc002.mcc425.pub.3gppnetwork.org.,IL_42502_Cellcom Israel Ltd.,2a02:14f:358:2f::3,False,IL,IL,True,NV-ASN CELLCOM ltd.
+epdg.epc.mnc002.mcc425.pub.3gppnetwork.org.,IL_42502_Cellcom Israel Ltd.,2a02:14f:358:27::3,False,IL,IL,True,NV-ASN CELLCOM ltd.
+epdg.epc.mnc026.mcc425.pub.3gppnetwork.org.,IL_42526_LB Annatel Ltd.,2a0c:4780:2::50,False,IL,IL,True,ANNATEL
+epdg.epc.mnc050.mcc440.pub.3gppnetwork.org.,JP_44050_KDDI Corporation,2001:268:f605:a000::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc050.mcc440.pub.3gppnetwork.org.,JP_44050_KDDI Corporation,2001:268:f638:a100::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc050.mcc440.pub.3gppnetwork.org.,JP_44050_KDDI Corporation,2001:268:f638:a000::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc050.mcc440.pub.3gppnetwork.org.,JP_44050_KDDI Corporation,2001:268:f605:a100::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc051.mcc440.pub.3gppnetwork.org.,JP_44051_KDDI Corporation,2001:268:f605:a000::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc051.mcc440.pub.3gppnetwork.org.,JP_44051_KDDI Corporation,2001:268:f638:a100::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc051.mcc440.pub.3gppnetwork.org.,JP_44051_KDDI Corporation,2001:268:f638:a000::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc051.mcc440.pub.3gppnetwork.org.,JP_44051_KDDI Corporation,2001:268:f605:a100::1,False,JP,JP,True,KDDI KDDI CORPORATION
+epdg.epc.mnc012.mcc502.pub.3gppnetwork.org.,MY_50212_Maxis Communications Berhad,::202.75.146.43,False,xx,xx,False,unknown
+epdg.epc.mnc012.mcc502.pub.3gppnetwork.org.,MY_50212_Maxis Communications Berhad,::202.75.146.42,False,xx,xx,False,unknown
+epdg.epc.mnc012.mcc502.pub.3gppnetwork.org.,MY_50212_Maxis Communications Berhad,::202.75.146.41,False,xx,xx,False,unknown
+epdg.epc.mnc000.mcc604.pub.3gppnetwork.org.,MA_60400_Médi Télécom,64:ff9b::c5e6:cab9,False,xx,xx,False,unknown
+epdg.epc.mnc000.mcc604.pub.3gppnetwork.org.,MA_60400_Médi Télécom,64:ff9b::c5e6:cab8,False,xx,xx,False,unknown
+epdg.epc.mnc029.mcc724.pub.3gppnetwork.org.,BR_72429_unknown,2804:30c:4103:2::80,False,BR,BR,True,Unifique Telecomunicacoes SA
