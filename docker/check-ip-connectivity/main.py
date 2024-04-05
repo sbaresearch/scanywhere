@@ -17,7 +17,7 @@ def scan_ip(comments):
     ip, country = ip_utils.get_ip_info(maxwait=60)
     output_file = generate_output_filename(output_dir, ip, country)
     with open(output_file, "w") as out:
-        out.write(f"IP is {ip} ({country}) via {comments['VPN_SERVICE_PROVIDER']}")
+        out.write(f"IP is {ip} ({country}) via {comments['VPN_SERVICE_PROVIDER']}\n")
 
 if __name__ == "__main__":
     print("hello")
