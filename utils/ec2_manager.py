@@ -21,8 +21,8 @@ from cryptography.hazmat.primitives import serialization
 logger = logging.getLogger(__name__)
 
 PATH_CREDENTIALS = "credentials.json"
-URL_DEADMAN_SWITCH_SHELLSCRIPT = "https://raw.githubusercontent.com/sbaresearch/scanywhere/utils/deadman_switch.sh"
-URL_DEADMAN_SWITCH_SERVICE = "https://raw.githubusercontent.com/sbaresearch/scanywhere/utils/deadman_switch.service"
+URL_DEADMAN_SWITCH_SHELLSCRIPT = "https://raw.githubusercontent.com/sbaresearch/scanywhere/main/utils/deadman_switch.sh"
+URL_DEADMAN_SWITCH_SERVICE = "https://raw.githubusercontent.com/sbaresearch/scanywhere/main/utils/deadman_switch.service"
 
 
 VPC_NAME="VPC-EPHEMERAL-WG"
@@ -50,9 +50,9 @@ class EC2Manager():
     def __init__(self, id=None, key=None): #region='eu-central-1'):
         # read public key
         with open('ssh_key.pub', 'r') as f:
-            PUBKEY = f.read()
-        if not PUBKEY:
-            PUBKEY = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01 mahatma@XPS-15-9570"
+            self.ssh_pubkey = f.read()
+        if not self.ssh_pubkey:
+            self.ssh_pubkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01 mahatma@XPS-15-9570"
 
         all_regions = boto3.session.Session().get_available_regions('ec2')
         region = random.choice(all_regions)
@@ -190,7 +190,7 @@ class EC2Manager():
 
     def start_instance_wg(self):
         server_config_file, client_config_dict = EC2Manager.wg_genconfig()
-        startup_script = EC2Manager.get_wg_setup_command(server_config_file)
+        startup_script = EC2Manager.get_wg_setup_command(server_config_file, self.ssh_pubkey)
         self.start_instance_startup_script(startup_script)
         client_config_dict['VPN_ENDPOINT_IP'] = self.get_ip()[0]
         return client_config_dict
@@ -281,12 +281,12 @@ class EC2Manager():
         return server_config_file, client_config_dict
     
     @staticmethod
-    def get_wg_setup_command(server_config_file):
+    def get_wg_setup_command(server_config_file, pubkey):
         script_setup = f'''#!/bin/bash
 
         # add pubkey for troubleshooting via ssh
         mkdir -p /home/admin/.ssh/
-        printf "{EC2Manager.PUBKEY}\n" | tee -a /home/admin/.ssh/authorized_keys
+        printf "{pubkey}\n" | tee -a /home/admin/.ssh/authorized_keys
 
         # install wiregguard
         apt update
