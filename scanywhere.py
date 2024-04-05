@@ -16,8 +16,12 @@ from utils.hideme import get_hideme_servers
 from utils.ip_utils import get_ip_info
 
 PATH_CREDENTIALS = "credentials.json"
-
 GLUETUN_API_PORT = None #8000
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)-15s %(name)-5s %(levelname)-8s %(message)s'
+)
 
 def get_config(key, config_path=PATH_CREDENTIALS):
     with open(config_path, "r") as jsonfile:
@@ -436,10 +440,6 @@ def read_gluetun_servers(json_path="docker/gluetun/servers.json"):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)-15s %(name)-5s %(levelname)-8s %(message)s'
-    )
     vpn_services = {
         'nord_open' : ENVIRONMENT_NORD_OPENVPN,
         'nord_wg' : ENVIRONMENT_NORD_WIREGUARD,
