@@ -10,6 +10,10 @@ Globally deploy and distribute your Internet measurements, scans and experiments
 * Out-of-the-box solution for running epehemeral wireguard VPNs across all available regions on AWS EC2
   * Implementing a [deadman_switch](/utils/deadman_switch.sh) that automatically shuts down your started instances after disconnection of the corresponding VPN client (to save you from excessive AWS fees)
 
+### Requirements
+* Docker
+* Python
+
 ## Usage
 1. Provide credentials to your subscriptions in the `credentials.json` config file (placed in the root directory). Not used services can be deleted or left empty.
 
@@ -68,8 +72,10 @@ Globally deploy and distribute your Internet measurements, scans and experiments
     `./scanywhere.py --vpn_service surfshark_open --target_image check-ip-connectivity`
 
 5. Scanywhere will iteratively execute the docker image for the test `check-ip-connectivity` from different countries using the selected VPN service.
+> [!INFO]
+> Note that the program will iteratively run the measurement over different VPN endpoints in an inifite loop. It can be terminated via Ctrl + C.
 
-6. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
+1. Check the `docker/check-ip-connectivity/results` folder to collect the results of the measurement.
 
 ### Arguments
 * `--vpn_service`: the VPN service that will be used as a proxy for the measurement
