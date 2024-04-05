@@ -264,7 +264,7 @@ def find_free_port(host="127.0.0.1"):
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         return s.getsockname()[1]
 
-def get_gluetun_ip_info(url="http://localhost:8000/v1/publicip/ip", sleeptime=2, ip_field="public_ip", country_field="country", maxwait=60*10):
+def get_gluetun_ip_info(url="http://localhost:8000/v1/publicip/ip", sleeptime=2, ip_field="public_ip", country_field="country", maxwait=60*5):
     return get_ip_info(url, sleeptime, ip_field, country_field, maxwait)
 
 def build_container(client, tag):
