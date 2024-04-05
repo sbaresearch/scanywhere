@@ -94,6 +94,9 @@ The current sourcecode automatically creates container volumes for the subfolder
 ### Update gluetun server lists
 `docker run --rm -v $(pwd)/docker/gluetun:/gluetun qmcgaw/gluetun update -enduser -providers "mullvad,nordvpn,private internet access,protonvpn,surfshark,hidemyass,cyberghost,ivpn"`
 
+## Disclaimer and Ethical Considerations
+This tool is currently in development. Although it has proven to be useful, it's not yet prepared for production and should be utilized cautiously, acknowledging any associated risks.
+Likewise, we recommend to only use it for lightweight measurements -- i.e., experiments that mimic the normal behaviour of Internet users -- since excessive or invasive scaninning possibly violates the ToS of your VPN subscriptions.
 
 ## Acknowledgments
 scanywhere was developed at [SBA Research](https://www.sba-research.org/) and [University of Vienna](https://sec.cs.univie.ac.at/) by [Gabriel K. Gegenhuber](https://www.sba-research.org/team/gabriel-k-gegenhuber/).
