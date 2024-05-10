@@ -119,9 +119,10 @@ If you use the code or data in your research or work, please cite the following 
 ```
 @inproceedings{gegenhuber2024geoblocking,
   title={Why E.T. Can't Phone Home: A Global View on IP-based Geoblocking at VoWiFi},
-  author={Gegenhuber, Gabriel K. and Frenzel, Philipp È. and Weippl, Edgar},
+  author={Gegenhuber, Gabriel K. and Frenzel, Philipp É. and Weippl, Edgar},
   booktitle={Proceedings of the 22nd Annual International Conference on Mobile Systems, Applications, and Services (MobiSys 2024)},
-  year={2024}
+  year={2024},
+  organization={ACM}
 }
 ```
 
