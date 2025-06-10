@@ -46,16 +46,20 @@ class EC2Manager():
     SCRIPT_HEADER = '''#!/bin/bash
     yum -y install socat;
     '''
+    
+    @staticmethod
+    def get_available_regions():
+        return boto3.session.Session().get_available_regions('ec2')
 
-    def __init__(self, id=None, key=None): #region='eu-central-1'):
+    def __init__(self, id=None, key=None, region=None): #region='eu-central-1'):
         # read public key
         with open('ssh_key.pub', 'r') as f:
             self.ssh_pubkey = f.read()
         if not self.ssh_pubkey:
             self.ssh_pubkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDDRfcyC7mH3FMZ5IgdoMFI5g4aOl5rroAs0e+jJMYl2i+mtSpaZ7wkjo7uDgDARKdyDGshqq+yhUdZuzp/MX8av5XW4bZr8EKOULqMNo5jw2tSwtnMU0NNiCsPw8hT6ynnBJqJ9+9bfZuWK65h3oG9XonR+Bqh4hRVSls3jPk+/YUNicN98o02cMzerlfyGgssWvsG3wdk/gTWingzZTOciIHaG7bGq0Gz1Hh+LrSFbF2f4Z3zIg4D3C+8zpkAYjTbTI/L3KNB4vYJhgEEyTWb5lVZp34/G8+Z5Sn/HBkgd6JA0HkaivZKlelqQa6P5vkGvMi8LLi+tWzg+gwHK01 mahatma@XPS-15-9570"
 
-        all_regions = boto3.session.Session().get_available_regions('ec2')
-        region = random.choice(all_regions)
+        self.region = region or random.choice(EC2Manager.get_available_regions())
+        #region='us-east-1'
         key = os.environ.get('EC2_ID')
         if key is None:
             with open(PATH_CREDENTIALS, "r") as jsonfile:
@@ -67,13 +71,13 @@ class EC2Manager():
             'ec2',
             aws_access_key_id=id,
             aws_secret_access_key=key,
-            region_name=region
+            region_name=self.region
         )
         self.ec2c = boto3.client(
             'ec2',
             aws_access_key_id=id,
             aws_secret_access_key=key,
-            region_name=region
+            region_name=self.region
         )
         self.instance = None
 
@@ -157,14 +161,14 @@ class EC2Manager():
         return sg.group_id, subnet.id
     
     def get_image_id(self, image_name):
-        images = self.ec2r.images.filter(Filters=[{"Name": "name", "Values": ['debian-11-amd64-20230515-1381']}])
+        images = self.ec2r.images.filter(Filters=[{"Name": "name", "Values": [image_name]}])
         image = next((x for x in images), None)
         return image.id
     
     def start_instance_startup_script(self, startup_script):
         security_group_id, subnet_id = self.prepare_security_group()
         instance_type = self.get_apropriate_instance_types()[0].get('InstanceType')
-        image_id = self.get_image_id('debian-11-amd64-20230515-1381')
+        image_id = self.get_image_id('debian-12-amd64-20240429-1732')
         instance = self.ec2r.create_instances(
             ImageId=image_id, #'ami-0b0c5a84b89c4bf99', #'ami-07151644aeb34558a',
             MinCount=1,
@@ -177,7 +181,7 @@ class EC2Manager():
             #KeyName='aws_xps'
         )
         self.instance = instance[0]
-        logger.info(f"wait until instance {self.instance.id} is up and running")
+        logger.info(f"wait until instance {self.instance.id} in region {self.region} is up and running")
         self.instance.wait_until_running()
         self.instance.reload() #refresh info, to get public ip addr
         logger.info(f"instance running, ip addresses are {*self.get_ip(),}")

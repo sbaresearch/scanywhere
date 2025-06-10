@@ -2,4 +2,4 @@ urllib3==1.26.14 #https://github.com/docker/docker-py/issues/3113
 docker
 boto3
 cryptography
-
+requests[socks]

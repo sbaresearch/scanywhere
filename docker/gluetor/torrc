@@ -1,0 +1,37 @@
+## The directory for keeping all the keys/etc
+DataDirectory /var/lib/tor
+
+## Tor opens a socks proxy on port 9150
+SocksPort 0.0.0.0:9050
+
+## Entry policies to allow/deny SOCKS requests based on IP address.
+## SocksPolicy accept 192.168.1.0/24
+#SocksPolicy accept 172.17.0.0/16
+#SocksPolicy reject *
+
+## Logs go to stdout at level "notice"
+Log notice stdout
+
+ClientOnly 1
+
+# TODO: reduce circuit length (number of hops)? disclaimer: will also reduce anonymity
+# DEFAULT_ROUTE_LEN is set to 3 per default; potentially we can reduce this to improve performance
+
+# allow dirty nodes, try to improve some other performance settings
+NumEntryGuards 16 
+UseEntryGuards 0
+NumDirectoryGuards 16
+MaxCircuitDirtiness 9999999
+StrictNodes 1
+
+VirtualAddrNetwork 10.192.0.0/10
+
+# TransPort 9051
+TransPort 127.0.0.1:9051
+TransPort [::1]:9051
+
+# DNSPort 9053
+DNSPort 127.0.0.1:9053
+DNSPort [::1]:9053
+
+AutomapHostsOnResolve 1

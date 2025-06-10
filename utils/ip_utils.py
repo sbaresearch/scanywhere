@@ -28,13 +28,13 @@ def allowed_gai_family():
 allowed_gai_family_orig = urllib3_cn.allowed_gai_family
 urllib3_cn.allowed_gai_family = allowed_gai_family
 
-def get_ip_info(url="https://wtfismyip.com/json", sleeptime=2, ip_field="YourFuckingIPAddress", country_field="YourFuckingCountryCode", maxwait=60*10):
+def get_ip_info(url="https://wtfismyip.com/json", sleeptime=2, ip_field="YourFuckingIPAddress", country_field="YourFuckingCountryCode", maxwait=60*10, proxies=None):
     time_start = time.time()
     response = None
     while not response:
         try:
             #print(f"requsting {url} ...")
-            r = requests.get(url, timeout=30)
+            r = requests.get(url, timeout=30, proxies=proxies)
             #print(r.text)
             response = r.json()
             ip = response[ip_field]
