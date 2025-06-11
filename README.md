@@ -78,7 +78,8 @@ Globally deploy and distribute your Internet measurements, scans and experiments
 
 ### Arguments
 * `--vpn_service`: the VPN service that will be used as a proxy for the measurement
-* `--server_selection`: can be set to `random` (i.e., the VPN server will be chosen randomly from all available servers) or `normalized` (i.e., the script will try to normalize the available VPN servers by their country, to not overrepresent popular countries in the measurements -- this can otherwise happen when a VPN service has many servers e.g., in the US or Germany).
+* `--server_selection`: can be set to `random` (i.e., the VPN server will be chosen randomly from all available servers) or `iterative` (i.e., the script will try to iterate over the available VPN servers by country).
+* `--disable_normalization`: scanywhere will try to maximize country-grade diversity and therefore group (normalize) VPN servers of the same country when iterating/selecting a particular VPN server for a measurement; this is done to not overrepresent popular countries (like US or Germany) in the measurements -- to just distribute your measurements over all IP addresses without considering their country this feature can be disabled).
 * `--warp_mode`: adds an additional cloudflare container that is chained after the original VPN service
 
 ## Implemented Experiments
