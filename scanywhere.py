@@ -10,13 +10,18 @@ import random
 import json
 import argparse
 import socket
+import itertools
 from contextlib import closing
 from utils.ec2_manager import EC2Manager
 from utils.hideme import get_hideme_servers
 from utils.ip_utils import get_ip_info
+from utils.tor_utils import get_available_tor_countries
 
 PATH_CREDENTIALS = "credentials.json"
 GLUETUN_API_PORT = None #8000
+
+# requests over tor socks proxy had difficulties with ipv6
+requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
 logging.basicConfig(
     level=logging.INFO,
@@ -146,7 +151,8 @@ ENVIRONMENT_HIDEME_OPENVPN = ENVIRONMENT_BASE | {
 # ec2
 ENVIRONMENT_BASE_EC2 = ENVIRONMENT_BASE | {
     "VPN_SERVICE_PROVIDER": "ec2", # ec2
-    "VPN_TYPE": "wireguard"
+    "VPN_TYPE": "wireguard",
+    "WIREGUARD_MTU" : "1412" #https://schroederdennis.de/vpn/wireguard-mtu-size-1420-1412-best-practices-ipv4-ipv6-mtu-berechnen/
 }
 
 ENVIRONMENT_BASE_WARP = ENVIRONMENT_BASE | {
@@ -158,6 +164,11 @@ ENVIRONMENT_BASE_WARP = ENVIRONMENT_BASE | {
     "VPN_ENDPOINT_IP":"162.159.192.1",
     "VPN_ENDPOINT_PORT":"2408"
 }
+
+ENVIRONMENT__BASE_TOR = {
+    "VPN_SERVICE_PROVIDER": "tor",
+}
+
 
 HIDEME_TEMPLATE = """
 client
@@ -274,7 +285,33 @@ def get_gluetun_ip_info(url="http://localhost:8000/v1/publicip/ip", sleeptime=2,
 def build_container(client, tag):
     logging.info(f"build {tag} container...")
     client.images.build(path = f"docker/{tag}/", tag=tag)
- 
+    
+def run_tor_container(client, environment, network, image_tag="gluetor"):
+    socks_port = GLUETUN_API_PORT or find_free_port()
+    logging.info(f"start tor (socks port {socks_port})")
+    cur_dir = pathlib.Path(".")
+    
+    container = client.containers.run(
+        image = f"{image_tag}:latest",
+        #network = network,
+        cap_add = ["NET_ADMIN"],
+        volumes = [f"{cur_dir.absolute()}/docker/{image_tag}/resources:/resources/"],
+        ports = {f"9050/tcp": ('127.0.0.1', socks_port)}, 
+        #sysctls = {"net.ipv6.conf.all.disable_ipv6": "0"},
+        environment = environment | {"ExitCountry" : environment.get('SERVER_COUNTRIES')},
+        detach = True,
+        remove = True
+    )
+        
+    started_containers.append(container.name)
+    time.sleep(5)
+    assert is_container_running(client, container.name)
+    #ip, country = get_ip_info(f"https://ipinfo.io/json", ip_field="ip", country_field="country", proxies=dict(http=f'socks5://127.0.0.1:{socks_port}', https=f'socks5://127.0.0.1:{socks_port}'))
+    ip, country = get_ip_info(f"https://wtfismyip.com/json", proxies=dict(http=f'socks5h://127.0.0.1:{socks_port}', https=f'socks5h://127.0.0.1:{socks_port}'))
+    
+    environment['TOR_IP'] = ip
+    logging.info(f"tor container[{container.name}] connected with {country} ({ip})")
+    return container.name
 
 def run_gluetun(client, environment, api_port=8000, network="", image="qmcgaw/gluetun:latest"):
     cur_dir = pathlib.Path(".")
@@ -383,15 +420,36 @@ def prune_docker_images(client, image_label):
         return client.images.prune(filters={"label": image_label})
     except:
         pass
-
-def start_containers(client, environment, target_image, network="", warp_mode=False):
-    # check if image is present:
+    
+def run_measurement(client, gluetun_name, gluetun_environment, target_image):
     try:
-        client.images.get(target_image)
+        measurement_name = run_image(client, gluetun_name, gluetun_environment, target_image)
+        logging.info(f"measurement launched: image[{target_image}] within container[{measurement_name}]")
+        while(is_container_running(client, measurement_name)):
+            time.sleep(1)
+        logging.info(f"measurement finished: image[{target_image}] within container[{measurement_name}]")
     except:
-        logging.error(f"unknown image {target_image}")
-        exit(-1)
+        logging.error("error running measurement...")
 
+def start_containers_tor(client, environment, target_image, network=""):
+    try:
+        tor_name = run_tor_container(client, environment, network)
+        run_measurement(client, tor_name, environment, target_image)
+    except TimeoutError:
+        logging.error("tor container did not get an ip address..")
+        pass
+    except AssertionError:
+        logging.error("tor container was not properly started...?")
+        import traceback
+        print(traceback.format_exc())
+        pass
+    except:
+        logging.error("unknown error occured...")
+        import traceback
+        print(traceback.format_exc())
+        pass
+
+def start_containers_gluetun(client, environment, target_image, network="", warp_mode="off"):
     gluetun_environment = environment.copy()
     if gluetun_environment.get('VPN_SERVICE_PROVIDER') in ['ec2']:
         gluetun_environment['VPN_SERVICE_PROVIDER'] = 'custom'
@@ -399,28 +457,43 @@ def start_containers(client, environment, target_image, network="", warp_mode=Fa
         gluetun_environment['VPN_SERVICE_PROVIDER'] = 'custom'
     try:
         gluetun_name = run_gluetun_extended(client, gluetun_environment, network)
-        if warp_mode:
+        if warp_mode in ["off", "dual"]:
+            # run measurement in normal (first layer) vpn
+            run_measurement(client, gluetun_name, gluetun_environment, target_image)
+        if warp_mode in ["on", "dual"]:
             gluetun_name, warp_ip = warponize_container(client, gluetun_name, network)
             gluetun_environment['GLUETUN_IP'] = warp_ip
             gluetun_environment['VPN_SERVICE_PROVIDER'] = "warp"
             gluetun_environment['VPN_TYPE'] = "wireguard"
-        
-        measurement_name = run_image(client, gluetun_name, gluetun_environment, target_image)
-        logging.info(f"measurement launched: image[{target_image}] within container[{measurement_name}]")
-        while(is_container_running(client, measurement_name)):
-            time.sleep(1)
-        logging.info(f"measurement finished: image[{target_image}] within container[{measurement_name}]")
+            # run measurement in warp (second layer) vpn
+            run_measurement(client, gluetun_name, gluetun_environment, target_image)
     except TimeoutError:
         logging.error("gluetun did not get an ip address..")
         pass
     except AssertionError:
         logging.error("gluetun was not properly started...?")
+        import traceback
+        print(traceback.format_exc())
         pass
     except:
         logging.error("unknown error occured...")
         #import traceback
         #print(traceback.format_exc())
         pass
+
+def start_containers(client, environment, target_image, network="", warp_mode="off"):
+    # check if image is present:
+    try:
+        client.images.get(target_image)
+    except:
+        logging.error(f"unknown image {target_image}")
+        exit(-1)
+    
+    if environment.get('VPN_SERVICE_PROVIDER') in ['tor']:
+        start_containers_tor(client, environment, target_image, network)
+    else:
+        start_containers_gluetun(client, environment, target_image, network, warp_mode)
+
     stop_all_started_containers()
 
 def read_gluetun_servers(json_path="docker/gluetun/servers.json"):
@@ -437,7 +510,33 @@ def read_gluetun_servers(json_path="docker/gluetun/servers.json"):
     except:
         logging.error("exception parsing gluetun servers.json")
         time.sleep(5)
+        
+def select_element(elements, counter, selection_strategy, normalize):
+    if normalize:
+        elements = list(dict.fromkeys(elements))
+    if selection_strategy == "iterative":
+        return elements[counter % len(elements)]
+    return random.choice(elements)
 
+def prepare_environment(counter, service, countries, regions, server_selection, normalize):
+    environment = vpn_services[service].copy()
+    if service == 'ec2':
+        ec2_regions = regions.split(',') if regions else EC2Manager.get_available_regions()
+        environment |= {'EC2_REGION' : select_element(ec2_regions, counter, server_selection, normalize)}
+        return environment
+    elif service == 'tor':
+        tor_countries = countries.split(',') if countries else get_available_tor_countries('docker/gluetor/resources/relay_details.json')
+        environment |= {'SERVER_COUNTRIES' : select_element(tor_countries, counter, server_selection, normalize)}
+        return environment
+        
+    service = environment["VPN_SERVICE_PROVIDER"]
+    gluetun_servers = read_gluetun_servers()
+    countries = countries.split(",") if countries else [d.get('country') for d in gluetun_servers[service]['servers']]
+    regions = regions.split(",") if regions else [d.get('region') for d in gluetun_servers[service]['servers']]
+    environment |= {'SERVER_COUNTRIES' : select_element(countries, counter, server_selection, normalize)}
+    environment |= {'SERVER_REGIONS' : select_element(regions, counter, server_selection, normalize)}
+    return environment
+            
 
 if __name__ == '__main__':
     vpn_services = {
@@ -459,18 +558,29 @@ if __name__ == '__main__':
         'proton_open_india' : ENVIRONMENT_PROTONVPN_OPENVPN | {"SERVER_COUNTRIES" : "India"},
         'hma_missing' : ENVIRONMENT_HIDEMYASS_OPENVPN | {"SERVER_COUNTRIES" : "Russia, Belarus, Faroe Islands, Antiguaand Barbuda, Bermuda, Dominican Republic, Jordan, Kuwait, Oman, Maldives, Sudan, Tanzania, Namibia"},
         'surfshark_germany' : ENVIRONMENT_SURFSHARK_OPENVPN | {"SERVER_COUNTRIES" : "Germany"},
-        'warp_wg': ENVIRONMENT_BASE_WARP
+        'warp_wg': ENVIRONMENT_BASE_WARP,
+        'tor': ENVIRONMENT__BASE_TOR,
     }
 
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--target_image', default='vowifi-geoblocking-scan-epdgs')
+    parser = argparse.ArgumentParser(description='TODO')
+    parser.add_argument('--target_image', default='check-ip-connectivity')
     parser.add_argument('--vpn_service',
                         choices=vpn_services.keys(),
                         required=True)
-    parser.add_argument('--server_selection', choices=['random', 'normalized'], default='normalized')
+    parser.add_argument('--server_selection', choices=['random', 'iterative'], default='random')
     parser.add_argument('--prune_containers', action='store_true')
-    parser.add_argument('--warp_mode', action='store_true')
-    args = parser.parse_args() #, warpmode=False
+    parser.add_argument('--warp_mode', choices=['off', 'warp', 'dual'], default='off')
+    parser.add_argument('--countries') #vpn countries or tor countries
+    parser.add_argument('--regions') # vpn regions or ec2 regions
+    parser.add_argument('--ec2_regions')
+    parser.add_argument('--tor_countries')
+    parser.add_argument('--disable_normalization', action='store_true')
+    args = parser.parse_args()
+    
+    if args.ec2_regions and not args.vpn_service == 'ec2':
+        exit("ec2_regions can only be set in combination with ec2 vpn_service")
+    #elif args.countries and args.regions:
+    #    exit("set either countries or regions (depends on vpn_service)")
 
     client = docker.from_env()
     
@@ -481,17 +591,19 @@ if __name__ == '__main__':
     build_container(client, args.target_image)
     
     network=""
-    if args.warp_mode:
+    if args.warp_mode in ['warp', 'dual']:
         # build_warp_container
         build_container(client, "gluetun-warp")
         network = client.networks.create(f"{uuid.uuid4()}").name
+    if args.vpn_service == 'tor':
+        build_container(client, "gluetor")
     
-    while(True):
+    for i in itertools.count():
         tmp_path = None
-
-        environment = vpn_services[args.vpn_service].copy()
+    
+        environment = prepare_environment(i, args.vpn_service, args.countries, args.regions, args.server_selection, not args.disable_normalization)
         if args.vpn_service == 'ec2':
-            ec2_manager = EC2Manager()
+            ec2_manager = EC2Manager(region=environment.get('EC2_REGION'))
             client_config_dict = ec2_manager.start_instance_wg()
             environment |= client_config_dict
         elif args.vpn_service == 'hideme_open':
@@ -507,25 +619,7 @@ if __name__ == '__main__':
             with open(tmp_path, "w") as file:
                 file.write(file_content)
             environment["OPENVPN_CUSTOM_CONFIG"] = f"/gluetun/{tmp_filename}"
-        elif environment["VPN_SERVICE_PROVIDER"] == 'custom':
-            pass
-        elif 'SERVER_COUNTRIES' in environment:
-            environment['SERVER_COUNTRIES'] = random.choice(environment['SERVER_COUNTRIES'].split(",")).strip()
-            logging.info(f"pin country to {environment['SERVER_COUNTRIES']}")
-        elif 'SERVER_REGIONS' in environment:
-            environment['SERVER_REGIONS'] = random.choice(environment['SERVER_REGIONS'].split(",")).strip()
-            logging.info(f"pin region to {environment['SERVER_REGIONS']}")
-        elif args.server_selection == 'normalized':
-            gluetun_servers = read_gluetun_servers()
-            service = environment['VPN_SERVICE_PROVIDER']
-            available_countries = list(dict.fromkeys([d.get('country') for d in gluetun_servers[service]['servers']]))
-            available_regions = list(dict.fromkeys([d.get('region') for d in gluetun_servers[service]['servers']]))
-            if any(available_countries):
-                environment |= {'SERVER_COUNTRIES' : random.choice(available_countries)}
-                logging.info(f"pin country to {environment['SERVER_COUNTRIES']}")
-            elif any(available_regions):
-                environment |= {'SERVER_REGIONS' : random.choice(available_regions)}
-                logging.info(f"pin region to {environment['SERVER_REGIONS']}")
+        
 
         start_containers(client, environment, args.target_image, network, args.warp_mode)
 

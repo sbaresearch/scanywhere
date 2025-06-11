@@ -7,7 +7,7 @@
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 # pinning exit relay node to target country that is provided via env
-./tor_utils.py --write-torrc --exit_country $ExitCountry
+./tor_utils.py --write_torrc --exit_country $ExitCountry
 
 # block icmp/udp traffic and forward everything else over tor
 ./iptables.sh

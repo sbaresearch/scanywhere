@@ -32,11 +32,11 @@ def download_relay_details(filename):
         with open(filename, 'wb') as f:
             f.write(r.content)
     else:
-        logging.info(f"Using cached relay details...")
+        logging.debug(f"Using cached relay details...")
 
 def load_exit_nodes(filename):
     with open(filename, 'r') as file:
-        logging.info(f"Processing relay details from {filename}...")
+        logging.debug(f"Processing relay details from {filename}...")
         details = json.load(file)
         max_time = max(datetime.strptime(r["last_seen"], "%Y-%m-%d %H:%M:%S") for r in details["relays"])
         relays = [r for r in details["relays"] if datetime.strptime(r["last_seen"], "%Y-%m-%d %H:%M:%S") >= max_time]
@@ -44,7 +44,7 @@ def load_exit_nodes(filename):
         return relays_exit
     
 def get_mapping(exit_relays):
-    logging.info(f"Get mapping...")
+    logging.debug(f"Get mapping...")
     relays_per_country_code = dict()
     relays_per_country_name = dict()
     for r in exit_relays:
@@ -66,10 +66,10 @@ def write_exit_to_torrc(exit_relay):
     with open(TORRC_PATH, 'a') as file:
         file.write(f'\nExitNodes {exit_relay}\n')
 
-def get_available_tor_countries(path_cache='/tmp/gluetor/'):
+def get_available_tor_countries(path_cache='/tmp/gluetor/relay_details.json'):
     path_cache = Path(path_cache)
     # ensure path exists:
-    path_cache.mkdir(parents=True, exist_ok=True)
+    path_cache.parent.mkdir(parents=True, exist_ok=True)
     download_relay_details(path_cache)
     exit_relays = load_exit_nodes(path_cache)
     relays_per_country_code, relays_per_country_name = get_mapping(exit_relays)

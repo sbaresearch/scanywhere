@@ -24,4 +24,6 @@ ADD startscript.sh /startscript.sh
 ADD iptables.sh /iptables.sh
 ADD https://raw.githubusercontent.com/sbaresearch/scanywhere/main/utils/tor_utils.py .
 
+RUN chmod +x tor_utils.py
+
 CMD ["/startscript.sh"]
