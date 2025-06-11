@@ -625,3 +625,6 @@ if __name__ == '__main__':
 
         if tmp_path:
             tmp_path.unlink()
+
+        # sleep to allow easier exit via KeyboardInterrupt
+        time.sleep(1)
